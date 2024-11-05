@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 public class ControladorLibro {
 
     private final ServicioLibro servicioLibro;
-
+    @GetMapping("/")
+    public ResponseEntity health() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity guardarLibro(@RequestBody Libro libro) {
         return new ResponseEntity(servicioLibro.guardarLibro(libro), HttpStatus.CREATED);
