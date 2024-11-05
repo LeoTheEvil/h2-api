@@ -19,10 +19,10 @@ public class ControladorLibro {
         return new ResponseEntity(servicioLibro.guardarLibro(libro), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity obtenerTodosLibros() {
-        return new ResponseEntity(servicioLibro.obtenerTodosLibros(), HttpStatus.OK);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity obtenerTodosLibros() {
+//        return new ResponseEntity(servicioLibro.obtenerTodosLibros(), HttpStatus.OK);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity obtenerLibro(@PathVariable("id") Long idLibro) {

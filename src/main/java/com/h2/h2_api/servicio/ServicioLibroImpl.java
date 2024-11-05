@@ -18,13 +18,13 @@ public class ServicioLibroImpl implements ServicioLibro{
         return repositorioLibro.save(libro);
     }
 
-    @Override
-    public Libro obtenerTodosLibros() {
-        return (Libro) repositorioLibro.findAll();
-    }
+//    @Override
+//    public Libro obtenerTodosLibros() {
+//        return (Libro) repositorioLibro.findAll();
+//    }
 
     @Override
-    public Optional<Libro> obtenerLibro(Long idLibro) {
+    public Libro obtenerLibro(Long idLibro) {
         return repositorioLibro.findById(idLibro).orElseThrow(() -> {throw new RuntimeException();});
     }
 
