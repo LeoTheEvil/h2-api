@@ -4,9 +4,7 @@ import com.h2.h2_api.modelo.Libro;
 import com.h2.h2_api.repositorio.RepositorioLibro;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-
+import java.util.List;
 @Service
 @AllArgsConstructor
 public class ServicioLibroImpl implements ServicioLibro{
@@ -18,14 +16,14 @@ public class ServicioLibroImpl implements ServicioLibro{
         return repositorioLibro.save(libro);
     }
 
-//    @Override
-//    public Libro obtenerTodosLibros() {
-//        return (Libro) repositorioLibro.findAll();
-//    }
+    @Override
+    public List<Libro> obtenerTodosLibros() {
+        return repositorioLibro.findAll();
+    }
 
     @Override
     public Libro obtenerLibro(Long idLibro) {
-        return repositorioLibro.findById(idLibro).orElseThrow(() -> {throw new RuntimeException();});
+        return repositorioLibro.findById(idLibro).orElseThrow(() -> {throw new ExcepcionNoEncuentraLibro();});
     }
 
     @Override
