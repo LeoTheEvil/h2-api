@@ -3,6 +3,7 @@ package com.h2.h2_api.servicio;
 import com.h2.h2_api.modelo.Libro;
 import com.h2.h2_api.repositorio.RepositorioLibro;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
@@ -18,7 +19,7 @@ public class ServicioLibroImpl implements ServicioLibro{
 
     @Override
     public List<Libro> obtenerTodosLibros() {
-        return repositorioLibro.findAll();
+        return repositorioLibro.findAll(firstPageWithTenElements);
     }
 
     @Override
