@@ -25,9 +25,10 @@ public class ControladorLibro {
     }
 
     @GetMapping("/")
-    public ResponseEntity obtenerTodosLibros() {
+    public ResponseEntity obtenerTodosLibros(@RequestParam int offset, @RequestParam int size) {
+        if (size==0) {size=10;}
         try {
-            return new ResponseEntity(servicioLibro.obtenerTodosLibros(), HttpStatus.OK);
+            return new ResponseEntity(servicioLibro.obtenerTodosLibros(1, 10), HttpStatus.OK);
         } catch (ExcepcionNoEncuentraLibro e) {
             return new ResponseEntity("No hay ningun libro en la lista.",HttpStatus.NOT_FOUND);
         }

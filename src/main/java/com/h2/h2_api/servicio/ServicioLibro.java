@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ServicioLibro {
     Libro guardarLibro(Libro libro);
-    List<Libro> obtenerTodosLibros(Pageable pageable);
+    List<Libro> obtenerTodosLibros(int offset, int size);
     Libro obtenerLibro(Long idLibro);
     Libro libroAModificar(Long id, Libro libroAModificar);
     boolean eliminarLibro(Long idLibro);
