@@ -26,7 +26,11 @@ public class ControladorLibro {
 
     @GetMapping("/")
     public ResponseEntity obtenerTodosLibros() {
-        return new ResponseEntity(servicioLibro.obtenerTodosLibros(), HttpStatus.OK);
+        try {
+            return new ResponseEntity(servicioLibro.obtenerTodosLibros(), HttpStatus.OK);
+        } catch (ExcepcionNoEncuentraLibro e) {
+            return new ResponseEntity("No hay ningun libro en la lista.",HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}")

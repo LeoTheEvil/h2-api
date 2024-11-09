@@ -94,16 +94,15 @@ class H2ApiApplicationTests {
 		libro.setTitle("");
 		libro.setAuthor("Miguel de Cervantes");
 		libro.setGenre("Comedia");
-		Long id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
-				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(400)
-				.extract().jsonPath().getObject("id",Long.class);
+		given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(400);
 	}
 	@Test
 	void debe_fallar_en_encontrar_un_libro() {
 		given().port(port).when().get("/api/books/1").then().statusCode(404);
 	}
 	@Test
-	void debbe_fallar_en_actualizar_un_libro() {
+	void debe_fallar_en_actualizar_un_libro() {
 		Libro libro = new Libro();
 		libro.setTitle("Don Quijote de la Mancha");
 		libro.setAuthor("Miguel de Cervantes");
