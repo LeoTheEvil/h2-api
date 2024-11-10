@@ -118,4 +118,58 @@ class H2ApiApplicationTests {
 	void debe_fallar_en_borrar_un_libro() {
 		given().port(port).when().delete("/api/books/901").then().statusCode(404);
 	}
+	@Test
+	void debe_mandar_una_A_en_el_offset() {
+		Libro libro = new Libro();
+		libro.setTitle("Don Quijote de la Mancha");
+		libro.setAuthor("Miguel de Cervantes");
+		libro.setGenre("Comedia");
+		int id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
+				.extract().jsonPath().getObject("id",Integer.class);
+		given().port(port).queryParam("offset", "A").when().get("/api/books/").then().statusCode(400);
+	}
+	@Test
+	void debe_mandar_un_mas_en_el_size() {
+		Libro libro = new Libro();
+		libro.setTitle("Don Quijote de la Mancha");
+		libro.setAuthor("Miguel de Cervantes");
+		libro.setGenre("Comedia");
+		int id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
+				.extract().jsonPath().getObject("id",Integer.class);
+		given().port(port).queryParam("size", "+").when().get("/api/books/").then().statusCode(400);
+	}
+	@Test
+	void debe_mandar_un_0_en_el_size() {
+		Libro libro = new Libro();
+		libro.setTitle("Don Quijote de la Mancha");
+		libro.setAuthor("Miguel de Cervantes");
+		libro.setGenre("Comedia");
+		int id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
+				.extract().jsonPath().getObject("id",Integer.class);
+		given().port(port).queryParam("size", "0").when().get("/api/books/").then().statusCode(400);
+	}
+	@Test
+	void debe_mandar_un_menos_1_en_el_offset() {
+		Libro libro = new Libro();
+		libro.setTitle("Don Quijote de la Mancha");
+		libro.setAuthor("Miguel de Cervantes");
+		libro.setGenre("Comedia");
+		int id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
+				.extract().jsonPath().getObject("id",Integer.class);
+		given().port(port).queryParam("offset", "-1").when().get("/api/books/").then().statusCode(400);
+	}
+	@Test
+	void debe_mandar_una_comilla_en_el_titulo() {
+		Libro libro = new Libro();
+		libro.setTitle("\"");
+		libro.setAuthor("Miguel de Cervantes");
+		libro.setGenre("Comedia");
+		int id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
+				.extract().jsonPath().getObject("id",Integer.class);
+	}
 }
