@@ -82,11 +82,20 @@ class H2ApiApplicationTests {
 		);
 	}
 	@Test
-	void debe_fallar_en_crear_un_libro() {
+	void debe_fallar_en_crear_un_libro_por_titulo_vacio() {
 		Libro libro = new Libro();
 		libro.setTitle("");
 		libro.setAuthor("Miguel de Cervantes");
 		libro.setGenre("Comedia");
+		given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(400);
+	}
+	@Test
+	void debe_fallar_en_crear_un_libro_por_genero_vacio() {
+		Libro libro = new Libro();
+		libro.setTitle("Don Quijote de la Mancha");
+		libro.setAuthor("Miguel de Cervantes");
+		libro.setGenre("");
 		given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
 				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(400);
 	}
@@ -188,6 +197,6 @@ class H2ApiApplicationTests {
 		int id3 = given().port(port).body(libro2).contentType(MediaType.APPLICATION_JSON.toString())
 				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
 				.extract().jsonPath().getObject("id",Integer.class);
-//		given().port(port).when().get("/api/books/").then().
+		given().port(port).queryParam("offset", 0).queryParam("size", 2).when().get("/api/books/").then().body("size()",is(2));
 	}
 }

@@ -26,11 +26,8 @@ public class ControladorLibro {
 
     @GetMapping("/")
     public ResponseEntity obtenerTodosLibros(@RequestParam(defaultValue = "0") String offset, @RequestParam(defaultValue = "10") String size) {
-
         try {
             return new ResponseEntity(servicioLibro.obtenerTodosLibros(Integer.valueOf(offset), Integer.valueOf(size)), HttpStatus.OK);
-        } catch (ExcepcionNoEncuentraLibro e) {
-            return new ResponseEntity("No hay ningun libro en la lista.",HttpStatus.NOT_FOUND);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity("Offset debe ser un numero mayor o igual a 0, y Size debe ser un numero mayor a 0.",HttpStatus.BAD_REQUEST);
         }
