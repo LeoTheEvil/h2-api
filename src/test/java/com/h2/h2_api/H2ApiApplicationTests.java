@@ -27,9 +27,9 @@ class H2ApiApplicationTests {
 		libro.setTitle("Don Quijote de la Mancha");
 		libro.setAuthor("Miguel de Cervantes");
 		libro.setGenre("Comedia");
-		Long id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+		int id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
 				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
-				.extract().jsonPath().getObject("id",Long.class);
+				.extract().jsonPath().getObject("id",Integer.class);
 		given().port(port).when().get("/api/books/"+id).then().body("id", equalTo(id));
 	}
 	@Test
@@ -52,9 +52,9 @@ class H2ApiApplicationTests {
 		libro.setTitle("Don Quijote de la Mancha");
 		libro.setAuthor("Miguel de Cervantes");
 		libro.setGenre("Comedia");
-		Long id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+		int id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
 				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
-				.extract().jsonPath().getObject("id",Long.class);
+				.extract().jsonPath().getObject("id",Integer.class);
 		given().port(port).when().delete("/api/books/"+id).then().statusCode(204);
 		given().port(port).when().get("/api/books/"+id).then().statusCode(404);
 	}
@@ -99,7 +99,7 @@ class H2ApiApplicationTests {
 	}
 	@Test
 	void debe_fallar_en_encontrar_un_libro() {
-		given().port(port).when().get("/api/books/1").then().statusCode(404);
+		given().port(port).when().get("/api/books/900").then().statusCode(404);
 	}
 	@Test
 	void debe_fallar_en_actualizar_un_libro() {
@@ -107,15 +107,15 @@ class H2ApiApplicationTests {
 		libro.setTitle("Don Quijote de la Mancha");
 		libro.setAuthor("Miguel de Cervantes");
 		libro.setGenre("Comedia");
-		Long id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
+		int id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
 				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
-				.extract().jsonPath().getObject("id",Long.class);
+				.extract().jsonPath().getObject("id",Integer.class);
 		libro.setAuthor("");
 		given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
 				.accept(MediaType.APPLICATION_JSON.toString()).when().put("/api/books/"+id).then().statusCode(400);
 	}
 	@Test
 	void debe_fallar_en_borrar_un_libro() {
-		given().port(port).when().delete("/api/books/1").then().statusCode(404);
+		given().port(port).when().delete("/api/books/901").then().statusCode(404);
 	}
 }

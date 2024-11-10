@@ -54,6 +54,7 @@ public class ControladorLibro {
 
     @DeleteMapping("/{id}")
     public ResponseEntity eliminarLibro(@PathVariable("id") Long idLibro) {
+
         boolean respuesta = servicioLibro.eliminarLibro(idLibro);
         if (respuesta == true) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);

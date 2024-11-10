@@ -5,6 +5,8 @@ import com.h2.h2_api.repositorio.RepositorioLibro;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
@@ -41,10 +43,11 @@ public class ServicioLibroImpl implements ServicioLibro{
     @Override
     public boolean eliminarLibro(Long idLibro) {
         try {
-            repositorioLibro.deleteById(idLibro);
-            return true;
-        } catch(Exception e) {
+            this.obtenerLibro(idLibro);
+        } catch (ExcepcionNoEncuentraLibro e) {
             return false;
         }
+        repositorioLibro.deleteById(idLibro);
+        return true;
     }
 }
