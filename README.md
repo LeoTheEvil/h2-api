@@ -6,27 +6,30 @@ en memoria (h2)
 La misma debe incluir los siguientes metodos:
 
 Crear un libro:
-Método HTTP: POST
-URL: /api/books
-Cuerpo de la petición: JSON con los campos title, author y genre
-Respuesta: JSON con el libro creado, incluyendo el ID generado
+    Método HTTP: POST
+    URL: /api/books
+    Cuerpo de la petición: JSON con los campos title, author y genre
+    Respuesta: JSON con el libro creado, incluyendo el ID generado
 Obtener todos los libros:
-Método HTTP: GET
-URL: /api/books
-Respuesta: JSON con una lista de todos los libros
+    Método HTTP: GET
+    URL: /api/books
+    Parametros de paginacion:
+        offset (numero mayor o igual a 0, por defecto 0)
+        size (numero mayor a 0, por defecto 10)
+    Respuesta: JSON con una lista de todos los libros
 Obtener un libro por ID:
-Método HTTP: GET
-URL: /api/books/{id}
-Respuesta: JSON con el libro correspondiente al ID
+    Método HTTP: GET
+    URL: /api/books/{id}
+    Respuesta: JSON con el libro correspondiente al ID
 Actualizar un libro:
-Método HTTP: PUT
-URL: /api/books/{id}
-Cuerpo de la petición: JSON con los nuevos datos del libro
-Respuesta: JSON con el libro actualizado
+    Método HTTP: PUT
+    URL: /api/books/{id}
+    Cuerpo de la petición: JSON con los nuevos datos del libro
+    Respuesta: JSON con el libro actualizado
 Eliminar un libro:
-Método HTTP: DELETE
-URL: /api/books/{id}
-Respuesta: HTTP 204 No Content
+    Método HTTP: DELETE
+    URL: /api/books/{id}
+    Respuesta: HTTP 204 No Content
 
 ## Requerimientos
 
