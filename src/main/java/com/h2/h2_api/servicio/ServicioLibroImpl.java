@@ -23,7 +23,7 @@ public class ServicioLibroImpl implements ServicioLibro{
     @Override
     public List<Libro> obtenerTodosLibros(int offset, int size) {
         Pageable page = PageRequest.of(offset, size);
-        return repositorioLibro.findAll();
+        return repositorioLibro.findAll(page);
     }
 
     @Override

@@ -1,20 +1,13 @@
 package com.h2.h2_api;
 
-import com.h2.h2_api.controlador.ControladorLibro;
 import com.h2.h2_api.modelo.Libro;
 import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
-import io.restassured.module.jsv.JsonSchemaValidator.*;
-import io.restassured.module.mockmvc.RestAssuredMockMvc.*;
-
-import org.junit.Assert;
+import com.h2.h2_api.servicio.ServicioLibroImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class H2ApiApplicationTests {
@@ -171,5 +164,30 @@ class H2ApiApplicationTests {
 		int id = given().port(port).body(libro).contentType(MediaType.APPLICATION_JSON.toString())
 				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
 				.extract().jsonPath().getObject("id",Integer.class);
+	}
+	@Test
+	void debe_paginar_la_lista_de_libros() {
+		Libro libro1 = new Libro();
+		libro1.setTitle("Don Quijote de la Mancha");
+		libro1.setAuthor("Miguel de Cervantes");
+		libro1.setGenre("Comedia");
+		int id1 = given().port(port).body(libro1).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
+				.extract().jsonPath().getObject("id",Integer.class);
+		Libro libro2 = new Libro();
+		libro2.setTitle("Cinco Semanas en Globo");
+		libro2.setAuthor("Julio Verne");
+		libro2.setGenre("Aventura");
+		int id2 = given().port(port).body(libro2).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
+				.extract().jsonPath().getObject("id",Integer.class);
+		Libro libro3 = new Libro();
+		libro3.setTitle("La Liga de los Pelirrojos");
+		libro3.setAuthor("Arthur Conan Doyle");
+		libro3.setGenre("Misterio");
+		int id3 = given().port(port).body(libro2).contentType(MediaType.APPLICATION_JSON.toString())
+				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
+				.extract().jsonPath().getObject("id",Integer.class);
+		ServicioLibroImpl.obtenerTodosLibros(0, 2);
 	}
 }
