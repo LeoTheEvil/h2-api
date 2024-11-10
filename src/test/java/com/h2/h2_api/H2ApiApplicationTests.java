@@ -188,6 +188,6 @@ class H2ApiApplicationTests {
 		int id3 = given().port(port).body(libro2).contentType(MediaType.APPLICATION_JSON.toString())
 				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
 				.extract().jsonPath().getObject("id",Integer.class);
-		ServicioLibroImpl.obtenerTodosLibros(0, 2);
+//		given().port(port).when().get("/api/books/").then().
 	}
 }

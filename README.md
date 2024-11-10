@@ -15,7 +15,9 @@ Obtener todos los libros:
     URL: /api/books
     Parametros de paginacion:
         offset (numero mayor o igual a 0, por defecto 0)
+            Cual pagina de la lista se desea ver.
         size (numero mayor a 0, por defecto 10)
+            Cuantos libros se desean ver por pagina.
     Respuesta: JSON con una lista de todos los libros
 Obtener un libro por ID:
     Método HTTP: GET
