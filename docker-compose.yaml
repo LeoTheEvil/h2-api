@@ -1,10 +1,10 @@
 services:
   db:
-    image: mariadb:10.3
+    image:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MARIADB_DATABASE=biblioteca
+      - MYSQL_DATABASE=biblioteca
     #volumes:
     #  - ${PWD}/mariadb:/var/lib/mysql
 
