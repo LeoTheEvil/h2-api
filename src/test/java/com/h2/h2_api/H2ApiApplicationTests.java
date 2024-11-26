@@ -67,7 +67,7 @@ class H2ApiApplicationTests {
 		int id2 = given().port(port).body(libro2).contentType(MediaType.APPLICATION_JSON.toString())
 				.accept(MediaType.APPLICATION_JSON.toString()).when().post("/api/books").then().statusCode(201)
 				.extract().jsonPath().getObject("id",Integer.class);
-		given().port(port).when().get("/api/books/").then().body("$",
+		given().port(port).queryParam("offset", 0).queryParam("size", 100).when().get("/api/books/").then().body("$",
 				hasItem(
 						allOf(
 								hasEntry("id", id1)

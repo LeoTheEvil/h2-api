@@ -1,8 +1,10 @@
+services:
   db:
     image: mariadb:10.3
     restart: always
     environment:
-    MYSQL_ROOT_PASSWORD: torneo
+      - MYSQL_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=biblioteca
     #volumes:
     #  - ${PWD}/mariadb:/var/lib/mysql
 
@@ -10,6 +12,6 @@
     image: phpmyadmin
     restart: always
     ports:
-      - 8081:80
+      - 8082:80
     environment:
       - PMA_ARBITRARY=1
