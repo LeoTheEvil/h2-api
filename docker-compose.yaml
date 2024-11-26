@@ -1,12 +1,12 @@
 services:
   db:
-    image:
+    image: 'mysql:latest'
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=biblioteca
     #volumes:
-    #  - ${PWD}/mariadb:/var/lib/mysql
+    #  - /var/lib/mysql
 
   dbadmin:
     image: phpmyadmin
